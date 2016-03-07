@@ -37,9 +37,68 @@ namespace jisuanke_Markdown_WPF
             txtTitle.Text = "已更新标题";
             txtTag.Text = "已更新tag";
         }
-        private void btnTitle_Click(object sender, EventArgs e)
+        
+        public void updateCode()
         {
+            update.text += Environment.NewLine;
+            update.text += "---";
+            update.text += Environment.NewLine;
+            if (lblStatus.Content.ToString() == "当前状态")
+            {
+                update.text += "### 初始化代码";
+                update.text += Environment.NewLine;
+                update.text += "```";
+                update.text += Environment.NewLine;
+                update.text += txtCode.Text;
+                update.text += Environment.NewLine;
+                update.text += "```";
+                txtGuide.Text = "";
+                txtTips.Text = "";
+                lblStatus.Content = "已添加初始化代码";
+                return;
+            }
+            if (txtTips.Text != "")
+            {
+                update.text += "### 第" + step.ToString() + "步";
+                update.text += Environment.NewLine;
+                update.text += "#### 讲解";
+                update.text += Environment.NewLine;
+                update.text += txtGuide.Text;
+                update.text += Environment.NewLine;
+                update.text += "#### 提示";
+                update.text += Environment.NewLine;
+                update.text += txtTips.Text;
+                update.text += Environment.NewLine;
+                update.text += "#### 代码";
+                update.text += Environment.NewLine;
+                update.text += "```";
+                update.text += Environment.NewLine;
+                update.text += txtCode.Text;
+                update.text += Environment.NewLine;
+                update.text += "```";
+                lblStatus.Content = "已添加第" + step.ToString() + "步";
+                step++;
+                txtTips.Text = "添加提示";
+            }
+            else
+            {
+                update.text += "#### 完成讲解";
+                update.text += Environment.NewLine;
+                update.text += txtGuide.Text;
+                lblStatus.Content = "已添加完成讲解";
+            }
+
+        }
+        private void btnTitle_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("btntitleclick");
             updateTitle();
+        }
+
+        private void btnCode_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("btncodeclick");
+            updateCode();
         }
     }
 }
